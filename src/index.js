@@ -1,17 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+
+import { applyMiddleware, createStore } from 'redux';
+import { Provider } from "react-redux";
+import { rootReducer } from "./store";
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
+
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+import './index.css';
+
+const persistedState = localStorage.getItem('reduxState')
+? JSON.parse(localStorage.getItem('reduxState'))
+: {};
+
+const middleware = applyMiddleware(thunk, logger);
+const store = createStore(rootReducer, persistedState, middleware);
+
+store.subscribe(() => {
+  localStorage.setItem(
+    'reduxState',
+    JSON.stringify(store.getState())
+  );
+});
+
+const rootEl = document.getElementById('root');
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>,
+  rootEl
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
