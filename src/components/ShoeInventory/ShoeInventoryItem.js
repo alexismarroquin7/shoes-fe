@@ -26,7 +26,7 @@ export const ShoeInventoryItem = ({ inventory_item }) => {
         <p>{brand.name}</p>
         <p>{name}</p>
 
-        <img src={thumbnail.src} width="200px"/>
+        <img alt={thumbnail.alt || ''} src={thumbnail.src || ''} width="200px"/>
         
         {colors.map((color,i) => {
           return (
