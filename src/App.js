@@ -1,6 +1,12 @@
 import { Route, Routes } from 'react-router';
 
-import { ShoeInventoryList, ShoeInventoryItemDetailed, Login } from "./components";
+import {
+  ShoeInventoryList,
+  ShoeInventoryItemDetailed,
+  Login,
+  Register,
+  ConfirmEmail
+} from "./components";
 
 import './App.css';
 
@@ -20,6 +26,14 @@ function App() {
       <Route 
         path="/login"
         element={<Login />}
+      />
+      <Route 
+        path="/register"
+        element={<Register />}
+      />
+      <Route 
+        path="/confirm-email/:token"
+        element={<ConfirmEmail />}
       />
       </Routes>
     

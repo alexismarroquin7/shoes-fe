@@ -15,11 +15,35 @@ const ACTION = {
     START: "AUTH--LOGOUT--START",
     SUCCESS: "AUTH--LOGOUT--SUCCESS",
     FAIL: "AUTH--LOGOUT--FAIL"
+  },
+  CONFIRM_EMAIL: {
+    START: "AUTH--CONFIRM-EMAIL--START",
+    SUCCESS: "AUTH--CONFIRM-EMAIL--SUCCESS",
+    FAIL: "AUTH--CONFIRM-EMAIL--FAIL"
   }
 }
 
 const register = (credentials) => async dispatch => {
+  dispatch({
+    type: ACTION.REGISTER.START
+  });
   
+  try {
+    const res = await axios().post(`/auth/register`, credentials);
+    dispatch({
+      type: ACTION.REGISTER.SUCCESS,
+      payload: {
+        user: res.data
+      }
+    });
+  } catch(err) {
+    dispatch({
+      type: ACTION.REGISTER.FAIL,
+      payload: {
+        error: err.response
+      }
+    });
+  }
 };
 
 const login = ({email,password}) => async dispatch => {
@@ -49,9 +73,20 @@ const logout = () => async dispatch => {
 
 };
 
+const confirmEmail = (token) => async dispatch => {
+  dispatch({ type: ACTION.CONFIRM_EMAIL.START });
+  try {
+    const res = await axios().put(`/auth/confirm-email/${token}`);
+    dispatch({ type: ACTION.CONFIRM_EMAIL.SUCCESS, payload: { user: res.data } });
+  } catch (err) {
+    dispatch({ type: ACTION.CONFIRM_EMAIL.FAIL, payload: { error: err.response } });
+  }
+};
+
 export const Auth = {
   ...ACTION,
   register,
   login,
-  logout
+  logout,
+  confirmEmail
 }
