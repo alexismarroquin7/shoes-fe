@@ -1,17 +1,11 @@
-import { Route, Routes, useNavigate } from 'react-router';
+import { Route, Routes } from 'react-router';
 
-import { ShoeInventoryList, ShoeInventoryItemDetailed } from "./components";
+import { ShoeInventoryList, ShoeInventoryItemDetailed, Login } from "./components";
 
 import './App.css';
-import { useEffect } from 'react';
 
 function App() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    navigate('/shoes');
-  }, [navigate])
-
+  
   return (
     <div className="App">
       <Routes>
@@ -22,6 +16,10 @@ function App() {
       <Route 
         path="/shoes/:shoe_id"
         element={<ShoeInventoryItemDetailed />}
+      />
+      <Route 
+        path="/login"
+        element={<Login />}
       />
       </Routes>
     
