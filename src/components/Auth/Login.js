@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import { Auth } from "../../store";
 
 const initialFormCredentials = {
-  email: 'mario@gmail.com',
-  password: '1234'
+  email: '',
+  password: ''
 }
 
 export const Login = () => {
