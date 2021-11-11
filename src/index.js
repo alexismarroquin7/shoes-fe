@@ -13,6 +13,8 @@ import App from './App';
 
 import './index.css';
 
+console.log(process.env);
+
 const persistedState = localStorage.getItem('reduxState')
 ? JSON.parse(localStorage.getItem('reduxState'))
 : {};
