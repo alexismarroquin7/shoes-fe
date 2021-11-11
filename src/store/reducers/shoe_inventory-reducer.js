@@ -76,7 +76,6 @@ const formatShoeInventoryList = (shoe_inventory_list) => {
       }
 
       if(i === shoeInvFiltered.length-1){
-        console.log('here',shoe_inv.shoe.images)
         thumbnail = {...shoe_inv.shoe.images[0]};
       }
     });

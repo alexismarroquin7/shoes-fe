@@ -30,7 +30,7 @@ export const ShoeInventoryItem = ({ inventory_item }) => {
         
         {colors.map((color,i) => {
           return (
-          <div>{color.name}{i !== colors.length-1 && ','}</div>
+          <div key={color.color_id}>{color.name}{i !== colors.length-1 && ','}</div>
           )
         })}
 
