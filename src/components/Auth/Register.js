@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Auth } from "../../store";
+import { TextField, Button, Grid } from "@material-ui/core";
 
 const initialFormCredentials = {
   username: '',
@@ -11,7 +12,9 @@ const initialFormCredentials = {
 
 export const Register = () => {
   const [credentials, setCredentials] = useState(initialFormCredentials);
+  const auth = useSelector(s => s.auth);
   const dispatch = useDispatch();
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCredentials({...credentials, [name]: value });
@@ -19,10 +22,11 @@ export const Register = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const valid = {
-      email: Boolean(credentials.email.trim().length > 0),
-      username: Boolean(credentials.username.trim().length > 0),
-      password: Boolean(credentials.password.trim().length > 0)
+      email: credentials.email.trim().length > 0,
+      username: credentials.username.trim().length > 0,
+      password: credentials.password.trim().length > 0
     };
 
     if(
@@ -43,32 +47,46 @@ export const Register = () => {
   return (
     <form onSubmit={handleSubmit}>
       <h2>Register</h2>
-      <div>
-        <input
-          type="username"
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <TextField
+          type="text"
+          variant="outlined"
           name="username"
           placeholder={"username"}
           value={credentials.username}
           onChange={handleChange}
         />
-        <input
+        <TextField
           type="email"
+          variant="outlined"
           name="email"
           placeholder={"email"}
           value={credentials.email}
           onChange={handleChange}
         />
-        <input
+        <TextField
           name="password"
+          variant="outlined"
           type="password"
           placeholder={"password"}
           value={credentials.password}
           onChange={handleChange}
         />
-      </div>
+      </Grid>
+
       <div>
-        <button type="submit">Register</button>
+        <p>{auth.status.error.message.length > 0 ? auth.status.error.message : ''}</p>
       </div>
+
+      <div>
+        <Button type="submit">Register</Button>
+      </div>
+      
       <p>
         Already have an account? 
         <a href="/register">
