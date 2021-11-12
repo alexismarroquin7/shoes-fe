@@ -11,7 +11,7 @@ export const ShoeInventoryList = () => {
   useEffect(()=> {
     
     const fetchAllShoeInventory = () => {
-      dispatch(Action.findAll());
+      dispatch(Action.findAll({useShoeView:true}));
     };
     fetchAllShoeInventory();
 

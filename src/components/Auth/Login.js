@@ -8,15 +8,21 @@ const initialFormCredentials = {
   password: ''
 }
 
+const initialHelperText = {
+  ...initialFormCredentials,
+  errorMessage: ''
+}
+
 export const Login = () => {
   const [credentials, setCredentials] = useState(initialFormCredentials);
-  const [helperText, setHelperText] = useState({ email: '', password: '' });
+  const [helperText, setHelperText] = useState(initialHelperText);
   
   const auth = useSelector(s => s.auth);
   const dispatch = useDispatch();
   
   const handleChange = (e) => {
     const { name, value } = e.target;
+    setHelperText(initialHelperText);
     setCredentials({...credentials, [name]: value });
   }
   
@@ -46,13 +52,16 @@ export const Login = () => {
     setTimeout(() => {
       if(!auth.status.loading && auth.status.error.message === ''){
         setCredentials(initialFormCredentials); 
+      } else if(auth.status.error.message.length > 0){
+        setHelperText({ ...helperText, errorMessage: auth.status.error.message })
       }
-    }, 1000 * 4);
+    }, 1000 * 5);
     
   }
 
   return (
     <form onSubmit={handleSubmit}>
+      
       <h2>Login</h2>
       <Grid
         container
@@ -85,7 +94,7 @@ export const Login = () => {
       </div>
       
       <div>
-        <p style={{color: 'red'}}>{auth.status.error.message.length > 0 ? auth.status.error.message : ''}</p>
+        <p style={{color: 'red'}}>{helperText.errorMessage}</p>
       </div>
       
       <p>
@@ -94,7 +103,7 @@ export const Login = () => {
           Register a new account
         </a>
       </p>
-    
+
     </form>
   )
 }
