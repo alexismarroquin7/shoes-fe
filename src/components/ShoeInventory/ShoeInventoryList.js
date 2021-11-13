@@ -18,7 +18,12 @@ export const ShoeInventoryList = () => {
   }, [dispatch])
   
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexFlow: "column wrap"
+      }}
+    >
       {inventory.list.length > 0 && inventory.list.map(inventory_item => {
         return ( <ShoeInventoryItem key={inventory_item.shoe_id} inventory_item={inventory_item}/> )
       })}

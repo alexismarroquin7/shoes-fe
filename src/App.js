@@ -62,6 +62,14 @@ function App() {
         }
       />
       <Route
+        path="/admin/shoe_inventory"
+        element={
+          status.loggedIn && user.role.name === 'admin' 
+          ? <AdminShoeInventoryList /> 
+          : <Navigate to="/login"/> 
+        }
+      />
+      <Route
         path="/admin/shoe_inventory/create-new-shoe"
         element={
           status.loggedIn && user.role.name === 'admin' 

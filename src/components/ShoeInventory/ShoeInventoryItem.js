@@ -1,10 +1,16 @@
 import { useNavigate } from "react-router-dom";
 
-const classes = {// eslint-disable-line
+const classes = {
   root: {
     display: "flex",
+    flexFlow: "column wrap",
+    border: "1px solid black"
+  },
+  card: {
+    width: "90%",
+    display: "flex",
     flexFlow: "row wrap",
-  }
+  },
 }
 
 export const ShoeInventoryItem = ({ inventory_item }) => {
@@ -19,14 +25,15 @@ export const ShoeInventoryItem = ({ inventory_item }) => {
   } = inventory_item;
   
   return (
-    <div style={{ border: "1px solid black" }} onClick={() => {
+    <div style={classes.root} onClick={() => {
       navigate(`/shoes/${shoe_id}`);      
     }}>
-      <div style={classes.root}>
+      <img width="200px" alt={thumbnail.alt || ''} src={thumbnail.src || ''} />
+      
+      <div style={classes.card}>
+      
         <p>{brand.name}</p>
         <p>{name}</p>
-
-        <img alt={thumbnail.alt || ''} src={thumbnail.src || ''} width="200px"/>
         
         {colors.map((color,i) => {
           return (
@@ -35,6 +42,7 @@ export const ShoeInventoryItem = ({ inventory_item }) => {
         })}
 
       </div>
+
     </div>
   );
 }
