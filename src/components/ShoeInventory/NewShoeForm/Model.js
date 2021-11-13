@@ -168,7 +168,7 @@ export const Model = ({
 
     <Divider />
     
-    {model.images.length > 0 && model.images.map(image => {
+    {model.images.length > 0 && model.images.map((image,i) => {
       return (
         <div
           style={classes.imageSectionRoot}
@@ -179,12 +179,12 @@ export const Model = ({
           style={classes.imageSection}
         >
           <div>
-            <h3>Image {model.images.length}</h3>
+            <h3>Image {i+1}</h3>
           </div>
 
           <div style={classes.textInputFormControl}>
             <div>
-              <label>Name: {image.name ? `[ ${image.name} ]` : `[ Not Set ]`}</label>
+              <label>Name: {image.name ? `` : `[ Not Set ]`}</label>
             </div>
             <input 
               style={classes.textInput}
@@ -196,7 +196,7 @@ export const Model = ({
           
           <div style={classes.textInputFormControl}>
             <div>
-              <label>Title: {image.title ? `[ ${image.title} ]` : `[ Not Set ]`}</label>
+              <label>Title: {image.title ? `` : `[ Not Set ]`}</label>
             </div>
             <input 
               style={classes.textInput}
@@ -208,7 +208,7 @@ export const Model = ({
           
           <div style={classes.textInputFormControl}>
             <div>
-              <label>Alt: {image.alt ? `[ ${image.alt} ]` : `[ Not Set ]`}</label>
+              <label>Alt: {image.alt ? `` : `[ Not Set ]`}</label>
             </div>
             <input 
               style={classes.textInput}
@@ -220,7 +220,7 @@ export const Model = ({
           
           <div>
             <div style={classes.textInputFormControl}>
-              <label>Src: {image.src ? `[ ${image.src} ]` : `[ Not Set ]`}</label>
+              <label>Src: {image.src ? `` : `[ Not Set ]`}</label>
             </div>
             <input 
               style={classes.textInput}

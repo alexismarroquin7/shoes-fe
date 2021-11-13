@@ -7,7 +7,8 @@ import {
   Style as ShoeStyleService,
   Color as ColorService,
   ShoeSize as ShoeSizeService,
-  Gender as GenderService
+  Gender as GenderService,
+  Shoe as ShoeService
 } from "../../../services"
 import { ModelSection } from "./ModelSection";
 import { v4 as uuidv4 } from 'uuid';
@@ -102,7 +103,7 @@ const initialDisabled = {
   brand: {
     select: false
   },
-  submit: true
+  submit: false
 }
 
 const Divider = () => {
@@ -493,9 +494,14 @@ export const NewShoeForm = () => {
     }
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    console.log('submitted', values);
+    try {
+      const res = await ShoeService.create(values);
+      console.log(res)
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
@@ -574,8 +580,6 @@ export const NewShoeForm = () => {
           >
           <button onClick={handleAddNewModel}>+ Model</button>
         </div>
-
-        {/* <Divider /> */}
 
         <div
           style={{margin: "1rem 0 4rem 0"}}
