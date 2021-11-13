@@ -10,13 +10,19 @@ const initialFormCredentials = {
   role: 'user'
 }
 
+const initialHelperText = {
+  errorMessage: ''
+}
+
 export const Register = () => {
   const [credentials, setCredentials] = useState(initialFormCredentials);
+  const [helperText, setHelperText] = useState(initialHelperText);
   const auth = useSelector(s => s.auth);
   const dispatch = useDispatch();
   
   const handleChange = (e) => {
     const { name, value } = e.target;
+    setHelperText(initialHelperText);
     setCredentials({...credentials, [name]: value });
   }
   
@@ -41,6 +47,13 @@ export const Register = () => {
         role: credentials.role
       }));
       setCredentials(initialFormCredentials);
+
+      setTimeout(() => {
+        if(auth.status.error.message){
+          setHelperText({...helperText, errorMessage: auth.status.error.message });
+        }
+
+      }, 1000 * 5);
     }
   }
 
@@ -80,7 +93,7 @@ export const Register = () => {
       </Grid>
 
       <div>
-        <p>{auth.status.error.message.length > 0 ? auth.status.error.message : ''}</p>
+        <p>{helperText.errorMessage}</p>
       </div>
 
       <div>
@@ -88,8 +101,8 @@ export const Register = () => {
       </div>
       
       <p>
-        Already have an account? 
-        <a href="/register">
+        Already have an account?{' '}
+        <a href="/login">
           Login
         </a>
       </p>

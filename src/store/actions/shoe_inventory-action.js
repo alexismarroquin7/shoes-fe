@@ -13,7 +13,7 @@ const ACTION = {
   }
 };
 
-const findAll = () => async dispatch => {
+const findAll = ({ useShoeView = false }) => async dispatch => {
   dispatch({
     type: ACTION.FETCH_ALL.START
   });
@@ -23,6 +23,7 @@ const findAll = () => async dispatch => {
     dispatch({
       type: ACTION.FETCH_ALL.SUCCESS,
       payload: {
+        useShoeView,
         shoe_inventory: res.data
       }
     });

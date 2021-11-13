@@ -5,13 +5,14 @@ const initialState = {
     loading: false,
     error: {
       message: ''
-    }
+    },
+    loggedIn: false
   },
   user: {},
   token: ''
 }
 
-export const authReducer = (state=initialState, action) => {
+export const authReducer = (state = initialState, action) => {
   switch(action.type){
     case Auth.REGISTER.START:
       return {
@@ -75,7 +76,8 @@ export const authReducer = (state=initialState, action) => {
           error: {
           ...state.status.error,
             message: ''
-          }
+          },
+          loggedIn: true
         },
         user: {
           ...state.user,

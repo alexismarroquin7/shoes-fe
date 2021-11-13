@@ -13,8 +13,8 @@ import App from './App';
 
 import './index.css';
 
-const persistedState = localStorage.getItem('reduxState')
-? JSON.parse(localStorage.getItem('reduxState'))
+const persistedState = localStorage.getItem('shoes-s')
+? JSON.parse(localStorage.getItem('shoes-s'))
 : {};
 
 const middleware = applyMiddleware(thunk, logger);
@@ -22,7 +22,7 @@ const store = createStore(rootReducer, persistedState, middleware);
 
 store.subscribe(() => {
   localStorage.setItem(
-    'reduxState',
+    'shoes-s',
     JSON.stringify(store.getState())
   );
 });

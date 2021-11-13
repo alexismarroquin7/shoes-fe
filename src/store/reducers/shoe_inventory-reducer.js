@@ -117,7 +117,7 @@ export const shoeInventoryReducer = (state = initialState, action) => {
       }
     
     case ShoeInventory.FETCH_ALL.SUCCESS:
-      const formattedShoeInventoryList = formatShoeInventoryList(action.payload.shoe_inventory);
+      const formattedShoeInventoryList = action.payload.useShoeView ? formatShoeInventoryList(action.payload.shoe_inventory) : action.payload.shoe_inventory;
       return {
         ...state,
         list: [...formattedShoeInventoryList],
