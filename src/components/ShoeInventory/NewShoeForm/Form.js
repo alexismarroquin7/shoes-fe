@@ -497,10 +497,11 @@ export const NewShoeForm = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
+      console.log(values)
       const res = await ShoeService.create(values);
       console.log(res)
     } catch (err) {
-      console.log(err);
+      console.log(err.response);
     }
   }
 

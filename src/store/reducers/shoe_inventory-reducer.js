@@ -11,7 +11,6 @@ const formatShoeInventoryList = (shoe_inventory_list) => {
   const shoes = uniqueShoeIdList.map(shoe_id => {
     
     let shoe = {};
-    let thumbnail = {};
     
     const colorSet = new Set();
     let colors = [];
@@ -75,14 +74,26 @@ const formatShoeInventoryList = (shoe_inventory_list) => {
 
       }
 
-      if(i === shoeInvFiltered.length-1){
-        thumbnail = {...shoe_inv.shoe.images[0]};
-      }
+
+    });
+
+    const uniqueImages = new Set();
+    const thumbnails = [];
+
+    colors.forEach(color => {
+      color.sizes.forEach(size => {
+        size.images.forEach(image => {
+          if(!uniqueImages.has(image.image_id)){
+            thumbnails.push(image);
+            uniqueImages.add(image.image_id)
+          }
+        });
+      });
     });
 
     return {
       ...shoe,
-      thumbnail,
+      thumbnails,
       colors
     };
 
